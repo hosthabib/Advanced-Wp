@@ -11,7 +11,7 @@
 	<header>
 		<div class="container">
 			<h1>
-				<a href="index.html">
+				<a href="<?php home_url('/') ?>">
 					<?php bloginfo('name'); ?>
 				</a>
 				<small><?php bloginfo('description'); ?></small>
@@ -38,38 +38,39 @@
 
 	<div class="container content">
 		<div class="main block">
-			<article class="post">
-				<h2>Blog Post 1</h2>
-				<p class="meta">Posted at 11:00 on October 13 by admin</p>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque interdum, ante sit amet ullamcorper pretium, nisi nisi luctus libero, vitae sagittis neque urna a nisi. Pellentesque sit amet scelerisque magna. Nunc sodales rutrum lorem et imperdiet. Nunc tincidunt arcu ut velit varius egestas. Praesent vestibulum sagittis mauris, eget condimentum risus ultrices non. Etiam porttitor odio in purus posuere, a venenatis purus pretium. Integer quis urna scelerisque, vehicula purus eu, auctor metus. Suspendisse auctor purus ac ligula volutpat posuere. Proin suscipit mauris nec mollis bibendum. Curabitur leo est, viverra et pulvinar nec, tincidunt eu justo. Donec sodales, tellus vel vulputate varius, dolor ligula commodo risus, sit amet consequat sem nulla quis quam. Nam commodo, ante sit amet dictum faucibus, nisl tortor vestibulum tellus, ut placerat justo leo et lorem. Sed arcu tellus, sollicitudin in erat vestibulum, mattis ornare ipsum. Aliquam nec urna imperdiet, consequat mauris eu, tempus enim. Fusce porta, urna eget tempus malesuada, tortor ligula fermentum turpis, ut fringilla lacus nunc sed velit. Pellentesque finibus congue felis, in congue lacus malesuada eget.
-</p>
-<p>
-Duis tellus risus, convallis ac mi in, varius pharetra lacus. Nunc bibendum vel urna at fringilla. Morbi varius, urna vel varius posuere, libero velit ultricies dui, nec convallis urna turpis et metus. Pellentesque viverra rhoncus odio, quis dignissim nisl bibendum ac. Etiam ipsum magna, viverra auctor metus vestibulum, viverra accumsan odio. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum ornare auctor mattis. Donec vitae posuere ipsum, vel bibendum ex. Pellentesque gravida sodales nisl, sit amet sodales lorem efficitur quis. Donec non turpis in leo feugiat elementum eget eget ligul</p>
+			<?php if(have_posts()) : ?>
+				<?php while(have_posts()) : the_post(); ?>
+					<article class="post">
+						<h2><?php the_title(); ?></h2>
+						<p class="meta">
+						Posted at 
+						<?php the_time('F j, Y g:i a'); ?>
+						by 
+						<a href="<?php echo get_author_posts_url(get_the_author_meta('ID')); ?>">
+						<?php the_author(); ?>
+						</a> |
+						Posted In 
+						<?php 
+							$categories = get_the_category();
+							$separator = ", ";
+							$output = '';
 
-				<a class="button" href="#">Read More</a>
-			</article> 
+							if($categories){
+								foreach($categories as $category){
+									$output .= '<a href="'.get_category_link($category->term_id).'">'.$category->cat_name.'</a>'. $separator;
+								}
+							}
 
-			<article class="post">
-				<h2>Blog Post 1</h2>
-				<p class="meta">Posted at 11:00 on October 13 by admin</p>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque interdum, ante sit amet ullamcorper pretium, nisi nisi luctus libero, vitae sagittis neque urna a nisi. Pellentesque sit amet scelerisque magna. Nunc sodales rutrum lorem et imperdiet. Nunc tincidunt arcu ut velit varius egestas. Praesent vestibulum sagittis mauris, eget condimentum risus ultrices non. Etiam porttitor odio in purus posuere, a venenatis purus pretium. Integer quis urna scelerisque, vehicula purus eu, auctor metus. Suspendisse auctor purus ac ligula volutpat posuere. Proin suscipit mauris nec mollis bibendum. Curabitur leo est, viverra et pulvinar nec, tincidunt eu justo. Donec sodales, tellus vel vulputate varius, dolor ligula commodo risus, sit amet consequat sem nulla quis quam. Nam commodo, ante sit amet dictum faucibus, nisl tortor vestibulum tellus, ut placerat justo leo et lorem. Sed arcu tellus, sollicitudin in erat vestibulum, mattis ornare ipsum. Aliquam nec urna imperdiet, consequat mauris eu, tempus enim. Fusce porta, urna eget tempus malesuada, tortor ligula fermentum turpis, ut fringilla lacus nunc sed velit. Pellentesque finibus congue felis, in congue lacus malesuada eget.
-</p>
-<p>
-Duis tellus risus, convallis ac mi in, varius pharetra lacus. Nunc bibendum vel urna at fringilla. Morbi varius, urna vel varius posuere, libero velit ultricies dui, nec convallis urna turpis et metus. Pellentesque viverra rhoncus odio, quis dignissim nisl bibendum ac. Etiam ipsum magna, viverra auctor metus vestibulum, viverra accumsan odio. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum ornare auctor mattis. Donec vitae posuere ipsum, vel bibendum ex. Pellentesque gravida sodales nisl, sit amet sodales lorem efficitur quis. Donec non turpis in leo feugiat elementum eget eget ligul</p>
-
-				<a class="button" href="#">Read More</a>
-			</article> 
-
-			<article class="post">
-				<h2>Blog Post 1</h2>
-				<p class="meta">Posted at 11:00 on October 13 by admin</p>
-				<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque interdum, ante sit amet ullamcorper pretium, nisi nisi luctus libero, vitae sagittis neque urna a nisi. Pellentesque sit amet scelerisque magna. Nunc sodales rutrum lorem et imperdiet. Nunc tincidunt arcu ut velit varius egestas. Praesent vestibulum sagittis mauris, eget condimentum risus ultrices non. Etiam porttitor odio in purus posuere, a venenatis purus pretium. Integer quis urna scelerisque, vehicula purus eu, auctor metus. Suspendisse auctor purus ac ligula volutpat posuere. Proin suscipit mauris nec mollis bibendum. Curabitur leo est, viverra et pulvinar nec, tincidunt eu justo. Donec sodales, tellus vel vulputate varius, dolor ligula commodo risus, sit amet consequat sem nulla quis quam. Nam commodo, ante sit amet dictum faucibus, nisl tortor vestibulum tellus, ut placerat justo leo et lorem. Sed arcu tellus, sollicitudin in erat vestibulum, mattis ornare ipsum. Aliquam nec urna imperdiet, consequat mauris eu, tempus enim. Fusce porta, urna eget tempus malesuada, tortor ligula fermentum turpis, ut fringilla lacus nunc sed velit. Pellentesque finibus congue felis, in congue lacus malesuada eget.
-</p>
-<p>
-Duis tellus risus, convallis ac mi in, varius pharetra lacus. Nunc bibendum vel urna at fringilla. Morbi varius, urna vel varius posuere, libero velit ultricies dui, nec convallis urna turpis et metus. Pellentesque viverra rhoncus odio, quis dignissim nisl bibendum ac. Etiam ipsum magna, viverra auctor metus vestibulum, viverra accumsan odio. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Vestibulum ornare auctor mattis. Donec vitae posuere ipsum, vel bibendum ex. Pellentesque gravida sodales nisl, sit amet sodales lorem efficitur quis. Donec non turpis in leo feugiat elementum eget eget ligul</p>
-
-				<a class="button" href="#">Read More</a>
-			</article> 
+							echo trim($output, $separator);
+						?>
+					</p>
+					<?php the_excerpt(); ?>
+					<a class="button" href="<?php the_permalink(); ?>">Read More</a>
+				</article>
+				<?php endwhile; ?>
+			<?php else: ?>
+				<?php echo wpautop('Sorry,no posts were found'); ?>
+			<?php endif; ?> 
 		</div>
 
 		<div class="side">
