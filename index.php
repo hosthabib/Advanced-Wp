@@ -10,13 +10,11 @@
 				<?php echo wpautop('Sorry,no posts were found'); ?>
 			<?php endif; ?> 
 		</div>
-
+		
 		<div class="side">
-			<div class="block">
-			<h3>Sidebar Head</h3>
-			<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis faucibus lacus sit amet orci eleifend suscipit. Quisque sit amet congue elit, sit amet dictum nisl</p>
-			<a class="button">More</a>
-			</div>
+			<?php if(is_active_sidebar('sidebar')) : ?>
+				<?php dynamic_sidebar('sidebar'); ?>
+			<?php endif; ?>
 		</div>
 	</div>
 
